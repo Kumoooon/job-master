@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap"
+      rel="stylesheet"
+    />
+    <title>TIM DAYOFF</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo" onClick="location.href='/'">TIM DAYOFF</div>
+      </div>
+      <div class="header"><p id="dynamic" class="lg-text"></p></div>
+      <div class="content">
+        <div class="menu">
+          <div class="information">소개</div>
+          <div class="aboutMe" onClick="location.href='/aboutMe.html'">
+            + About Me
+          </div>
+          <div class="management">메뉴</div>
+          <div
+            class="employeeManagement"
+            onClick="location.href='/employeeManagement.html'"
+          >
+            + 직원 관리
+          </div>
+          <div
+            class="annualManagement"
+            onClick="location.href='/annualManagement.html'"
+          >
+            + 연차 관리
+          </div>
+        </div>
+        <div class="display2">
+          <div class="workSpace2">
+            <div class="add">
+              <div class="logo-EmployeeAdd" onClick="location.href='/'">
+                TIM DAYOFF
+              </div>
+
+              <div class="editTag">직원정보 수정하기</div>
+              <form class="add-post-form" id="inputForm">
+                <div class="form-group-FN">
+                  <div class="editlabel" id="firstName">성</div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Ftname"
+                    onfocus="fontApearFN()"
+                    required
+                  />
+                </div>
+                <div class="form-group-LN">
+                  <div class="editlabel" id="lastName">이름</div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Ltname"
+                    onfocus="fontApearLN()"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <div class="editlabel" id="position">직급</div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Position"
+                    onfocus="fontApearPS()"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <div class="editlabel" id="annual">총 연차</div>
+                  <input
+                    type="integer"
+                    class="form-control"
+                    id="Annual"
+                    onfocus="fontApearAN()"
+                    required
+                  />
+                  <div class="form-day">일</div>
+                </div>
+                <div class="form-group">
+                  <div class="editlabel" id="number">연락처</div>
+                  <input
+                    type="integer"
+                    class="form-control"
+                    id="Pnumber"
+                    onfocus="fontApearNU()"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <div class="editlabel" id="email">e-mail</div>
+                  <input
+                    type="integer"
+                    class="form-control"
+                    id="Em"
+                    onfocus="fontApearEM()"
+                    required
+                  />
+                </div>
+
+                <div class="addEmployeeBtn" id="editBtnPressed">저장</div>
+                <div
+                  class="closeEmployeeBtn"
+                  onClick="location.href='/employeeManagement.html'"
+                >
+                  닫기
+                </div>
+                <button class="deleteEmployeeBtn" id="deleteEmployeeBtn">
+                  삭제
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/script.js"></script>
+    <script src="/yesOrno.js"></script>
+    <script src="randomstring.js"></script>
+    <script>
+      const url = "http://timworx.com:21011/employees";
+      let data = JSON.parse(localStorage.getItem("sendData"));
+      document.getElementById("Ftname").value = data.fn;
+      document.getElementById("Ltname").value = data.ln;
+      document.getElementById("Position").value = data.ps;
+      document.getElementById("Annual").value = data.an;
+      document.getElementById("Pnumber").value = data.pn;
+      document.getElementById("Em").value = data.em;
+
+      const deleteEmployeeBtn = document.getElementById("deleteEmployeeBtn");
+      deleteEmployeeBtn.addEventListener("click", function areYouSure(event) {
+        event.preventDefault();
+        const isTrue = confirm("정말 삭제하시겠습니까?");
+        if (isTrue) {
+          fetch(`${url}/${data.id}`, {
+            method: "DELETE",
+          });
+        }
+        window.location.href = "employeeManagement.html";
+      });
+
+      const editEmployeeBtn = document.getElementById("editBtnPressed");
+      editEmployeeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        let putFirstName = document.getElementById("Ftname").value;
+        let putLastName = document.getElementById("Ltname").value;
+        let putPosition = document.getElementById("Position").value;
+        let putAnnual = document.getElementById("Annual").value;
+        let putPhonenumber = document.getElementById("Pnumber").value;
+        let putEmail = document.getElementById("Em").value;
+        fetch(`${url}/${data.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstname: putFirstName,
+            lastname: putLastName,
+            position: putPosition,
+            annual: putAnnual,
+            phonenumber: putPhonenumber,
+            email: putEmail,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const dataArr = [];
+            dataArr.push(data);
+            renderPosts(data);
+          });
+        location.href = "/employeeManagement.html";
+      });
+    </script>
+  </body>
+</html>

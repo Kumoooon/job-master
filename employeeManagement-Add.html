@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap"
+      rel="stylesheet"
+    />
+    <title>TIM DAYOFF</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo" onClick="location.href='/'">TIM DAYOFF</div>
+      </div>
+      <div class="header"><p id="dynamic" class="lg-text"></p></div>
+      <div class="content">
+        <div class="menu">
+          <div class="information">소개</div>
+          <div class="aboutMe" onClick="location.href='/aboutMe.html'">
+            + About Me
+          </div>
+          <div class="management">메뉴</div>
+          <div
+            class="employeeManagement"
+            onClick="location.href='/employeeManagement.html'"
+          >
+            + 직원 관리
+          </div>
+          <div
+            class="annualManagement"
+            onClick="location.href='/annualManagement.html'"
+          >
+            + 연차 관리
+          </div>
+        </div>
+        <div class="display2">
+          <div class="workSpace2">
+            <div class="add">
+              <div class="logo-EmployeeAdd" onClick="location.href='/'">
+                TIM DAYOFF
+              </div>
+
+              <div class="addTag">직원정보 등록하기</div>
+              <form class="add-post-form" id="inputForm">
+                <div class="form-group-FN">
+                  <div class="label" id="firstName">성</div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstname"
+                    placeholder="성"
+                    onfocus="fontApearFN()"
+                    required
+                  />
+                </div>
+                <div class="form-group-LN">
+                  <div class="label" id="lastName">이름</div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastname"
+                    placeholder="이름"
+                    onfocus="fontApearLN()"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <div class="label" id="position">직급</div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Position"
+                    placeholder="직급"
+                    onfocus="fontApearPS()"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <div class="label" id="annual">총 연차</div>
+                  <input
+                    type="integer"
+                    class="form-control"
+                    id="totalannual"
+                    placeholder="총 연차"
+                    onfocus="fontApearAN()"
+                    required
+                  />
+                  <div class="form-day">일</div>
+                </div>
+                <div class="form-group">
+                  <div class="label" id="number">연락처</div>
+                  <input
+                    type="integer"
+                    class="form-control"
+                    id="phonenumber"
+                    placeholder="연락처"
+                    onfocus="fontApearNU()"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <div class="label" id="email">e-mail</div>
+                  <input
+                    type="integer"
+                    class="form-control"
+                    id="eemail"
+                    placeholder="E-Mail"
+                    onfocus="fontApearEM()"
+                    required
+                  />
+                </div>
+
+                <button class="addEmployeeBtn">저장</button>
+                <div
+                  class="closeEmployeeBtn"
+                  onClick="location.href='/employeeManagement.html'"
+                >
+                  닫기
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="randomstring.js"></script>
+    <script src="/script.js"></script>
+    <script src="addemployee.js"></script>
+  </body>
+</html>

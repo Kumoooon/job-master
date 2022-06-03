@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap"
+      rel="stylesheet"
+    />
+    <title>TIM DAYOFF</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo" onClick="location.href='/'">TIM DAYOFF</div>
+      </div>
+      <div class="header"><p id="dynamic" class="lg-text"></p></div>
+      <div class="content">
+        <div class="menu">
+          <div class="information">소개</div>
+          <div class="aboutMe" onClick="location.href='/aboutMe.html'">
+            + About Me
+          </div>
+          <div class="management">메뉴</div>
+          <div
+            class="employeeManagement"
+            onClick="location.href='/employeeManagement.html'"
+          >
+            + 직원 관리
+          </div>
+          <div
+            class="annualManagement"
+            onClick="location.href='/annualManagement.html'"
+          >
+            + 연차 관리
+          </div>
+        </div>
+        <div class="display2">
+          <div class="workSpace2">
+            <div class="edit">
+              <div class="logo-EmployeeAdd" onClick="location.href='/'">
+                TIM DAYOFF
+              </div>
+
+              <div class="addTag">연차 수정하기</div>
+              <form class="add-post-form2" id="inputForm">
+                <div class="form-group-date-from">
+                  <div class="label3" id="fromday"></div>
+                  <input type="date" class="from" id="from" required />
+                </div>
+                <div class="term">~</div>
+                <div class="form-group-date-to">
+                  <div class="label3" id="today"></div>
+                  <input type="date" class="to" id="to" required />
+                </div>
+                <div class="total" id="total"></div>
+                <div class="totalAnnual">일</div>
+                <div class="deleteAnnualBtn" id="deleteAnnualBtn">삭제</div>
+                <button class="addAnnualBtn" type="submit">저장</button>
+                <div
+                  class="closeAnnualBtn"
+                  onClick="location.href='/annualManagement-Detail.html'"
+                >
+                  닫기
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/script.js"></script>
+    <script src="/termCalculate&Send2.js"></script>
+    <script></script>
+    <script src="randomstring.js"></script>
+    <script>
+      let data = JSON.parse(localStorage.getItem("sendData"));
+      const annualId = data.id;
+      let annualFd = data.fd;
+      let annualTd = data.td;
+      const annualTm = data.tm;
+      let cutAnnualFd = annualFd.substr(0, 10);
+      let cutAnnualTd = annualTd.substr(0, 10);
+      const selectFromDay = document.getElementById("fromday");
+      const selctToday = document.getElementById("today");
+      const selectTerm = document.getElementById("total");
+      selectFromDay.textContent = cutAnnualFd;
+      selctToday.textContent = cutAnnualTd;
+      selectTerm.textContent = annualTm;
+
+      const url = "http://timworx.com:21011/annuals";
+      const deleteAnnualBtn = document.getElementById("deleteAnnualBtn");
+      deleteAnnualBtn.addEventListener("click", function areYouSure() {
+        if (confirm("정말 삭제하시겠습니까?")) {
+          fetch(`${url}/${annualId}`, {
+            method: "DELETE",
+          })
+            .then((res) => res.json())
+            .then((location.href = "/annualManagement-Detail.html"));
+        } else {
+          location.href = "/annualManagement-Edit.html";
+        }
+      });
+    </script>
+  </body>
+</html>

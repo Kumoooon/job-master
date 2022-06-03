@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/4335224fc6.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>TIM DAYOFF</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo" onClick="location.href='/'">TIM DAYOFF</div>
+      </div>
+      <div class="header"><p id="dynamic" class="lg-text"></p></div>
+      <div class="content">
+        <div class="menu">
+          <div class="information">소개</div>
+          <div class="aboutMe" onClick="location.href='/aboutMe.html'">
+            + About ME
+          </div>
+          <div class="management">메뉴</div>
+          <div
+            class="employeeManagement"
+            onClick="location.href='/employeeManagement.html'"
+          >
+            + 직원 관리
+          </div>
+          <div
+            class="annualManagement"
+            onClick="location.href='/annualManagement.html'"
+          >
+            + 연차 관리
+          </div>
+        </div>
+        <div class="display">
+          <div class="workSpace3">
+            <div class="name"></div>
+            <div class="title2">님 연차 상세페이지 입니다.</div>
+            <div class="leftoverTag">남은 연차 :</div>
+            <div class="leftover"></div>
+            <div class="day2">일</div>
+
+            <div class="annuals"></div>
+          </div>
+          <button onclick="topFunction()" id="myBtn" title="Go to top">
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/4335224fc6.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="randomstring.js"></script>
+    <script src="script.js"></script>
+    <script>
+      // const id = JSON.parse(localStorage.getItem("id"));
+      const id = localStorage.getItem("id");
+      const fn = localStorage.getItem("fn");
+      const ln = localStorage.getItem("ln");
+      const an = localStorage.getItem("an");
+
+      const nameTag = document.querySelector(".name");
+      nameTag.textContent = fn + ln;
+
+      const postsList = document.querySelector(".annuals");
+
+      const url = "http://timworx.com:21011/annuals";
+      const url2 = "http://timworx.com:21011/leftover";
+      fetch(`${url2}/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.length < 1) {
+            localStorage.setItem("leftover", an);
+          } else {
+            const arr = { ...data };
+            const arrValue = arr[0].leftover;
+            inputLeftover(arrValue);
+            localStorage.setItem("leftover", arrValue);
+          }
+        });
+      const leftover = document.querySelector(".leftover");
+      if ((leftover.textContent = [])) {
+        leftover.textContent = an;
+      }
+
+      function inputLeftover(data) {
+        const leftover = document.querySelector(".leftover");
+        leftover.textContent = data;
+      }
+      let output = `<div class="annualOne-dummy" >
+                    <div class="addAnnualMenu2"
+                    onClick="location.href='/annualManagement-Add.html'">
+                    +</div>
+                    </div>`;
+
+      fetch(`${url}/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          renderPosts(data);
+        });
+
+      const renderPosts = (posts) => {
+        posts.forEach((post) => {
+          let from = post.fromday;
+          let to = post.today;
+          let f = from.substr(0, 10);
+          let t = to.substr(0, 10);
+
+          const imgNum = Math.floor(Math.random() * (6 - 1 + 1) + 1);
+          output += `<div class="item"
+          onClick="location.href='/annualManagement-Edit.html'"
+          ><div class="annualOne"
+                        id=${post.id}
+                        data-fd=${post.fromday}
+                        data-td=${post.today}
+                        data-tm=${post.term}
+                        data-ei=${post.employees_id}>
+                        <div class="terms">${post.term}
+                        <div class="days">일</div>
+
+                          </div>
+                            <div class="from-day">${f}</div>
+                              <div class="day-term">~</div>
+                              <div class="to-day">${t}</div>
+                              <div class="imageContainer">
+                              <img class="image" id="image" src="/image/${imgNum}.png" />
+                              </div>
+                        </div></div>`;
+          postsList.innerHTML = output;
+        });
+      };
+
+      postsList.innerHTML = output;
+
+      postsList.addEventListener("click", (e) => {
+        e.preventDefault();
+        const annualId = e.target.id;
+        const annualFd = e.target.dataset.fd;
+        const annualTd = e.target.dataset.td;
+        const annualTm = e.target.dataset.tm;
+
+        let sendData = {
+          id: annualId,
+          fd: annualFd,
+          td: annualTd,
+          tm: annualTm,
+        };
+        localStorage.setItem("sendData", JSON.stringify(sendData));
+      });
+    </script>
+    <script>
+      mybutton = document.getElementById("myBtn");
+
+      window.onscroll = function () {
+        scrollFunction();
+      };
+
+      function scrollFunction() {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+    </script>
+
+    <script src="leftover.js"></script>
+  </body>
+</html>

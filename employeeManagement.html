@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap"
+      rel="stylesheet"
+    />
+    <title>TIM DAYOFF</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo" onClick="location.href='/'">TIM DAYOFF</div>
+      </div>
+      <div class="header"><p id="dynamic" class="lg-text"></p></div>
+      <div class="content">
+        <div class="menu">
+          <div class="information">소개</div>
+          <div class="aboutMe" onClick="location.href='/aboutMe.html'">
+            + About ME
+          </div>
+          <div class="management">메뉴</div>
+          <div
+            class="employeeManagement"
+            onClick="location.href='/employeeManagement.html'"
+          >
+            + 직원 관리
+          </div>
+          <div
+            class="annualManagement"
+            onClick="location.href='/annualManagement.html'"
+          >
+            + 연차 관리
+          </div>
+        </div>
+        <div class="display">
+          <div class="workSpace2">
+            <form class="searchEmployeeForm">
+              <div class="form-group">
+                <div class="title">직원 목록</div>
+                <input
+                  type="text"
+                  class="search"
+                  id="searchArea"
+                  placeholder="search"
+                  required
+                />
+                <span class="x" id="x">
+                  <i class="fa-solid fa-xmark fa-xl"></i>
+                </span>
+                <div class="searchBtn" id="searchBtn">
+                  <div class="circle"><div class="innerCircle"></div></div>
+                  <div class="stripe"></div>
+                </div>
+              </div>
+            </form>
+            <div
+              class="addEmployeePage"
+              onClick="location.href='/employeeManagement-Add.html'"
+            >
+              +
+            </div>
+            <div class="list"></div>
+          </div>
+          <button onclick="topFunction()" id="myBtn" title="Go to top">
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/4335224fc6.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="showEmployee.js"></script>
+    <script src="randomstring.js"></script>
+    <script src="deleteOrEditEmployee.js"></script>
+    <script>
+      const searchArea = document.getElementById("searchArea");
+      const x = document.getElementById("x");
+
+      searchArea.addEventListener("input", function () {
+        x.style.display = "inline-block";
+      });
+      x.addEventListener("click", () => {
+        searchArea.value = "";
+        const url = "http://timworx.com:21011/employees";
+        output = "";
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            renderPosts(data);
+          });
+      });
+    </script>
+    <script>
+      mybutton = document.getElementById("myBtn");
+
+      window.onscroll = function () {
+        scrollFunction();
+      };
+
+      function scrollFunction() {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+    </script>
+  </body>
+</html>

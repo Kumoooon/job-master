@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap"
+      rel="stylesheet"
+    />
+    <title>TIM DAYOFF</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo"><a href="/index.html">TIM DAYOFF</a></div>
+      </div>
+      <div class="header"><p id="dynamic" class="lg-text"></p></div>
+      <div class="content">
+        <div class="menu">
+          <div class="information">소개</div>
+          <div class="aboutMe" onClick="location.href='/aboutMe.html'">
+            + About ME
+          </div>
+          <div class="management">메뉴</div>
+
+          <div
+            class="employeeManagement"
+            onClick="location.href='/employeeManagement.html'"
+          >
+            + 직원 관리
+          </div>
+          <div
+            class="annualManagement"
+            onClick="location.href='/annualManagement.html'"
+          >
+            + 연차 관리
+          </div>
+        </div>
+        <div class="display">
+          <div class="workSpace">
+            <div class="introduce">
+              <div class="paper">
+                <div class="introduce-title">TIM DAYOFF</div>
+                <div class="introduce-subTitle">- 직원·연차 관리 웹사이트</div>
+                <br />
+                <br />
+                <p class="discriptionAboutDayoff">
+                  HTML과 JavaScript, Css를 사용하여 CRUD를 구현한
+                  웹사이트입니다.<br />
+                  CRUD란 Create, Read, Update, Delete의 앞 글자를 딴 단어로,
+                  <br />웹상에서 데이터의 생성, 읽기, 수정, 삭제의 구현을
+                  말합니다.
+                  <br />
+                  <br />
+                  <img src="/menu1.png" />
+                  <br />
+                  '+직원 관리' 에서 직원의 생성, 읽기, 수정, 삭제를,
+                  <br />
+                  '+연차 관리' 에서 연차의 생성, 읽기, 수정, 삭제를
+                  구현하였습니다.
+                  <br />
+                  <br />
+                  <img src="/addemployee.png" />
+                  <br />
+                  +직원 관리 화면입니다. +버튼으로 직원을 생성합니다.
+                  <br />
+                  박스들 중 하나를 클릭하여 해당 직원의 정보를 열람, 수정 및
+                  삭제할 수 있게끔 하였습니다.
+                  <br />
+                  우측 상단의 커서에 직원의 이름을 입력하고, 돋보기 아이콘을
+                  클릭하여 <br />해당 직원의 정보만을 출력할 수 있습니다.
+
+                  <br />
+                  <br />
+                  <img src="/employeetoannual.png" />
+                  <br />
+                  +연차관리 화면입니다. 직원 관리 화면과 마찬가지로 <br />우측
+                  상단의 커서에 직원의 이름을 입력하면 <br />해당 직원의 메뉴만
+                  남게 됩니다.
+                  <br />
+                  <br />
+                  <img src="/addannual.png" />
+                  <br />
+                  연차 관리 화면입니다. +메뉴를 통해 연차를 생성할 수 있습니다.
+                  <br />
+                  각각 하나의 연차를 의미하는 박스들을 클릭하여 <br />
+                  연차 날짜의 확인 및 수정, 삭제가 가능합니다.
+                  <br />
+                  <br />
+
+                  <img src="/close.png" />
+                </p>
+                <button onclick="topFunction()" id="myBtn" title="Go to top">
+                  <i class="fa-solid fa-arrow-up"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/4335224fc6.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="randomstring.js"></script>
+    <script>
+      mybutton = document.getElementById("myBtn");
+
+      window.onscroll = function () {
+        scrollFunction();
+      };
+
+      function scrollFunction() {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }
+    </script>
+  </body>
+</html>
